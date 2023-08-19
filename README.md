@@ -1,6 +1,6 @@
 # LangCaptcha
 
-## How to run the DB server
+## How to run the backend and DB server
 
 1. Spin up a Postgres database and the backend in containers. From the project root directory, run:
 
@@ -47,3 +47,9 @@
 
     | id | prompt_id      | translation      |
     |----|----------------|------------------|
+
+    In order to check if the tables are created, you can enter the container using the command
+
+    ```shell
+    docker exec -it <postgres-container-id> psql -U postgres -d bytes
+    ```
