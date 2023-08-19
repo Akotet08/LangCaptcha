@@ -1,14 +1,14 @@
 services:
   db:
-  image: postgres:15.4
-  volumes:
-    - postgres:/var/lib/postgresql/data/
-  environment:
-    - POSTGRES_USER=postgres
-    - POSTGRES_PASSWORD=bytes
-    - POSTGRES_DB=bytes
-  ports:
-    - 5432:5432
+    image: postgres:15.4
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=bytes
+      - POSTGRES_DB=bytes
+    ports:
+      - 5432:5432
 
 volumes:
   postgres:
