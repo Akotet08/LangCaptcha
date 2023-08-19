@@ -1,2 +1,4 @@
 # virtual environment
 venv
+# model files
+CONVERTED_COMET
