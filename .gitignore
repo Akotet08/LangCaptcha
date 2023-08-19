@@ -1,5 +1,8 @@
 # virtual environment
 venv
 
+# model files
+CONVERTED_COMET
+
 # pycache
 **/__pycache__

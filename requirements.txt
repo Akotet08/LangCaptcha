@@ -3,3 +3,6 @@ pandas==2.0.3
 psycopg2-binary==2.9.7
 sqlalchemy==2.0.20
 translate-toolkit==3.10.0
+unbabel-comet==2.0.2
+onnx==1.14.0
+onnxruntime==1.15.1
