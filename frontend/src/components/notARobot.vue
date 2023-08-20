@@ -9,7 +9,7 @@
           <p><h5> Please translate the sentence accurately to Korean </h5></p>
           <p><h5> 문장을 한국어로 정확히 번역해 주세요 </h5></p> 
           <br/>
-          <h2><strong> Where is the organizer of this event? </strong></h2>
+          <h2><strong> {{ firstPrompt }} </strong></h2>
           <textarea id="message" name="message" rows="4" wrap="soft"></textarea>
           <br/>
           <div v-if="this.firstError === true" class="fail-message">
@@ -26,7 +26,7 @@
           <p><h5> Please translate the sentence accurately to Korean </h5></p>
           <p><h5> 문장을 한국어로 정확히 번역해 주세요 </h5></p> 
           <br/>
-          <h2><strong> There should be a policy that limits the number of visitors in the school per day. </strong></h2>
+          <h2><strong> {{ secondPrompt }} </strong></h2>
           <textarea id="message" name="message" rows="4" wrap="soft"></textarea>
           <br/>
           <button @click="secondAuth"> Check </button>
@@ -41,13 +41,21 @@
 </template>
 
 <script>
+  import axios from "axios";
+
+  const rest = axios.create({
+    baseURL: "http://localhost:80/api",
+  });
+
   export default {
     data() {
       return {
         verified: false,
         showFirst: false,
         showSecond: false,
-        firstError: false
+        firstError: false,
+        firstPrompt: "",
+        secondPrompt: ""
       };
     },
     methods: {
@@ -71,8 +79,20 @@
       },
       verify() {
         this.showFirst = true
+      },
+      async getFirstPrompt() {
+        const response = await rest.get("/first");
+        this.firstPrompt = response.data.prompt_text;
+      },
+      async getSecondPrompt() {
+        const response = await rest.get("/second");
+        this.secondPrompt = response.data.prompt_text;
       }
-    }
+    },
+    created() {
+      this.getFirstPrompt();
+      this.getSecondPrompt();
+    },
   };
 </script>
 
