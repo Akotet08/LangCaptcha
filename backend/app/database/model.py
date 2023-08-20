@@ -4,6 +4,13 @@ metadata = MetaData()
 
 # Define tables
 
+first = Table(
+    "first", metadata,
+    Column("id", Integer, primary_key=True, index=True),
+    Column("en", String),
+    Column("ko", String)
+)
+
 prompt = Table(
     "prompt", metadata,
     Column("id", Integer, primary_key=True, index=True),
