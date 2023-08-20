@@ -8,6 +8,12 @@
     cd backend && docker compose up  # use the --build flag if this is your first time spinning up the project
     ```
 
+    Note: make sure that you don't have any other Postgres running in the same port. You can check it by
+
+    ```shell
+    lsof -i:5432  # or any other port where you are running the containerized Postgres DB
+    ```
+
 2. Make sure that the containers are running using
 
     ```shell
@@ -31,7 +37,6 @@
     To set up the second part of the verification, run
 
     ```shell
-    cd utils
     python setup_second.py
     ```
 
