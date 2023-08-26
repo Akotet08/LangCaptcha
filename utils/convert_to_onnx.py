@@ -3,7 +3,6 @@ from transformers import AutoTokenizer
 import torch
 from comet import download_model, load_from_checkpoint
 import onnxruntime as ort
-import onnx
 
 
 CONVERTED_COMET_DIR = 'CONVERTED_COMET'
