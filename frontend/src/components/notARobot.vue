@@ -55,14 +55,18 @@
         showSecond: false,
         firstError: false,
         firstPrompt: "",
-        secondPrompt: ""
+        firstPromptID: 0,
+        secondPrompt: "",
+        secondPromptID: 0,
       };
     },
     methods: {
-      firstAuth() {
+      async firstAuth() {
         const messageTextarea = document.getElementById("message");
         const text = messageTextarea.value;
-        if (text === "이 행사의 진행하시는 분이 어디 계세요?") {
+        const response = await rest.post("/first", {"prompt_id": this.firstPromptID, "translation": text});
+
+        if (response.data.score >= 0.75) {
           this.firstError = false;
           this.showFirst = false;
           this.showSecond = true;
@@ -71,7 +75,10 @@
           this.firstError = true;
         }
       },
-      secondAuth() {
+      async secondAuth() {
+        const messageTextarea = document.getElementById("message");
+        const text = messageTextarea.value;
+        const response = await rest.post("/second", {"prompt_id": this.secondPromptID, "translation": text});
         this.showSecond = false;
         setTimeout(() => {
           this.verified = true;
@@ -83,11 +90,13 @@
       async getFirstPrompt() {
         const response = await rest.get("/first");
         this.firstPrompt = response.data.prompt_text;
+        this.firstPromptID = response.data.prompt_id;
       },
       async getSecondPrompt() {
         const response = await rest.get("/second");
         this.secondPrompt = response.data.prompt_text;
-      }
+        this.secondPromptID = response.data.prompt_id;
+      },
     },
     created() {
       this.getFirstPrompt();
