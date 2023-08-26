@@ -2,7 +2,15 @@
 
 ## How to run the backend and DB server
 
-1. Spin up a Postgres database and the backend in containers. From the project root directory, run:
+1. In order to use the COMET model in the backend, you first need to download the model. Use the function
+
+    ```shell
+    cd utils && python convert_to_onnx.py
+    ```
+
+    The downloading process is going to take a while. When it's done, copy or move the `CONVERTED_COMET` folder to `$PROJECT_ROOT/backend/app`.
+
+2. Spin up a Postgres database and the backend in containers. From the project root directory, run:
 
     ```shell
     cd backend && docker compose up  # use the --build flag if this is your first time spinning up the project
@@ -14,13 +22,13 @@
     lsof -i:5432  # or any other port where you are running the containerized Postgres DB
     ```
 
-2. Make sure that the containers are running using
+3. Make sure that the containers are running using
 
     ```shell
     docker ps
     ```
 
-    If this is the first time you set up the environment, save the authentication data into the database by running
+    If this is the first time you set up the environment, (in a new terminal) save the authentication data into the database by running
 
     ```shell
     cd ../utils
@@ -58,3 +66,11 @@
     ```shell
     docker exec -it <postgres-container-id> psql -U postgres -d bytes
     ```
+
+4. In order to run the frontend, in another terminal, type in the command
+
+    ```shell
+    npm run dev  # make sure that node is installed
+    ```
+
+    and open the website using the address mentioned in the terminal.
